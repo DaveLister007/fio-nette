@@ -15,7 +15,7 @@
           	{
 	            "type": "vcs",
 	            "url": "https://github.com/DaveLister007/fio.git"
-	        },
+	        }
 	],
 	"require": {
 		"h4kuna/fio": "dev-curlopts",
