@@ -11,6 +11,7 @@ class FioExtension extends CompilerExtension
 	public $defaults = [
 		'account' => NULL,
 		'token' => NULL,
+		'curlOptions' => NULL,
 		'accounts' => [],
 		'temp' => '%tempDir%/fio',
 		'transactionClass' => '\h4kuna\Fio\Response\Read\Transaction'
@@ -42,8 +43,13 @@ class FioExtension extends CompilerExtension
 			->setArguments([$config['temp']]);
 
 		// Queue
-		$builder->addDefinition($this->prefix('queue'))
+		$queueBuilder = $builder->addDefinition($this->prefix('queue'))
 			->setClass('h4kuna\Fio\Request\Queue');
+		if ($config['curlOptions'] !== NULL){
+			$queueBuilder->addSetup('$service->setCurlOptions(?)',[$config['curlOptions']]);
+		}
+
+
 
 		// JsonTransactionFactory - lazy
 		$builder->addDefinition($this->prefix('jsonTransactionFactory'))
